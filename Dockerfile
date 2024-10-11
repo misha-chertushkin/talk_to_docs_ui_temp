@@ -13,9 +13,14 @@ COPY . .
 RUN flutter build web --release
 
 FROM nginx:stable-alpine
+
 RUN rm /usr/share/nginx/html/*
+
+RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
+
 COPY --from=build /app/build/web /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
 
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
