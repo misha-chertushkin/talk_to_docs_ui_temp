@@ -28,7 +28,6 @@ dependencies:
   aligned_dialog: 0.0.6
   auto_size_text: 3.0.0
   cached_network_image: 3.3.1
-  collection: 1.18.0
   data_table_2: 2.5.10
   equatable: 2.0.5
   file_picker: ^8.0.7
