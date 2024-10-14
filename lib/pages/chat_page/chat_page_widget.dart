@@ -265,6 +265,43 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                                   ?.jsonBody ??
                                                               ''),
                                                         )!,
+                                                        onProjectClick:
+                                                            (projectId) async {
+                                                          FFAppState()
+                                                                  .projectID =
+                                                              projectId;
+                                                          safeSetState(() {});
+                                                          if (Navigator.of(
+                                                                  context)
+                                                              .canPop()) {
+                                                            context.pop();
+                                                          }
+                                                          context.pushNamed(
+                                                            'chatPage',
+                                                            queryParameters: {
+                                                              'projectId':
+                                                                  serializeParam(
+                                                                projectId,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .fade,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                              ),
+                                                            },
+                                                          );
+                                                        },
                                                       ),
                                                     ),
                                                   );
@@ -645,150 +682,168 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                       chatList[chatListIndex];
                                                   return Builder(
                                                     builder: (context) =>
-                                                        ChatItemWidget(
-                                                      key: Key(
-                                                          'Key8l2_${chatListIndex}_of_${chatList.length}'),
-                                                      chat: chatListItem,
-                                                      index: chatListIndex,
-                                                      showDebug:
-                                                          chatListItem.isAi,
-                                                      onDebugClick: () async {
-                                                        var _shouldSetState =
-                                                            false;
-                                                        if (chatListItem.isAi) {
-                                                          _model.debugDetailResp =
-                                                              await TalkDocsGroup
-                                                                  .debugResponseCall
-                                                                  .call(
-                                                            responseId:
-                                                                chatListItem
-                                                                    .responseId,
-                                                          );
+                                                        wrapWithModel(
+                                                      model: _model
+                                                          .chatItemModels
+                                                          .getModel(
+                                                        chatListItem
+                                                            .isDebugVisible
+                                                            .toString(),
+                                                        chatListIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      child: ChatItemWidget(
+                                                        key: Key(
+                                                          'Key8l2_${chatListItem.isDebugVisible.toString()}',
+                                                        ),
+                                                        chat: chatListItem,
+                                                        index: chatListIndex,
+                                                        showDebug: chatListItem
+                                                                .isAi &&
+                                                            chatListItem
+                                                                .isDebugVisible,
+                                                        sendingChat: false,
+                                                        onDebugClick: () async {
+                                                          var _shouldSetState =
+                                                              false;
+                                                          if (chatListItem
+                                                              .isAi) {
+                                                            _model.debugDetailResp =
+                                                                await TalkDocsGroup
+                                                                    .debugResponseCall
+                                                                    .call(
+                                                              responseId:
+                                                                  chatListItem
+                                                                      .responseId,
+                                                            );
 
-                                                          _shouldSetState =
-                                                              true;
-                                                          if ((_model
-                                                                  .debugDetailResp
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (dialogContext) {
-                                                                return Dialog(
-                                                                  elevation: 0,
-                                                                  insetPadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  alignment: AlignmentDirectional(
-                                                                          1.0,
-                                                                          0.0)
-                                                                      .resolve(
-                                                                          Directionality.of(
-                                                                              context)),
-                                                                  child:
-                                                                      GestureDetector(
-                                                                    onTap: () =>
-                                                                        FocusScope.of(dialogContext)
-                                                                            .unfocus(),
+                                                            _shouldSetState =
+                                                                true;
+                                                            if ((_model
+                                                                    .debugDetailResp
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (dialogContext) {
+                                                                  return Dialog(
+                                                                    elevation:
+                                                                        0,
+                                                                    insetPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    alignment: AlignmentDirectional(
+                                                                            1.0,
+                                                                            0.0)
+                                                                        .resolve(
+                                                                            Directionality.of(context)),
                                                                     child:
-                                                                        Container(
-                                                                      height:
-                                                                          MediaQuery.sizeOf(context).height *
-                                                                              1.0,
-                                                                      width: MediaQuery.sizeOf(context)
-                                                                              .width *
-                                                                          0.65,
+                                                                        GestureDetector(
+                                                                      onTap: () =>
+                                                                          FocusScope.of(dialogContext)
+                                                                              .unfocus(),
                                                                       child:
-                                                                          DebugPanelDialogWidget(
-                                                                        timeTaken: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .timeTaken(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
-                                                                        confidenceScore: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .confidenceScore(
-                                                                              (_model.debugDetailResp?.jsonBody ?? ''),
-                                                                            )!
-                                                                            .toString(),
-                                                                        previousContext: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .previousContext(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
-                                                                        question: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .question(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
-                                                                        finalResponse: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .finalResponse(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
-                                                                        roundInfoList: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .roundsInfoList(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
-                                                                        roundDocList: TalkDocsGroup
-                                                                            .debugResponseCall
-                                                                            .roundDocsList(
-                                                                          (_model.debugDetailResp?.jsonBody ??
-                                                                              ''),
-                                                                        )!,
+                                                                          Container(
+                                                                        height: MediaQuery.sizeOf(context).height *
+                                                                            1.0,
+                                                                        width: MediaQuery.sizeOf(context).width *
+                                                                            0.65,
+                                                                        child:
+                                                                            DebugPanelDialogWidget(
+                                                                          timeTaken: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .timeTaken(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                          confidenceScore: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .confidenceScore(
+                                                                                (_model.debugDetailResp?.jsonBody ?? ''),
+                                                                              )!
+                                                                              .toString(),
+                                                                          previousContext: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .previousContext(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                          question: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .question(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                          finalResponse: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .finalResponse(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                          roundInfoList: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .roundsInfoList(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                          roundDocList: TalkDocsGroup
+                                                                              .debugResponseCall
+                                                                              .roundDocsList(
+                                                                            (_model.debugDetailResp?.jsonBody ??
+                                                                                ''),
+                                                                          )!,
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text(
+                                                                    'Something went wrong!',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                    ),
                                                                   ),
-                                                                );
-                                                              },
-                                                            );
-                                                          } else {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Something went wrong!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          4000),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
                                                                 ),
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        4000),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
+                                                              );
+                                                            }
+
+                                                            if (_shouldSetState)
+                                                              safeSetState(
+                                                                  () {});
+                                                            return;
+                                                          } else {
+                                                            if (_shouldSetState)
+                                                              safeSetState(
+                                                                  () {});
+                                                            return;
                                                           }
 
                                                           if (_shouldSetState)
                                                             safeSetState(() {});
-                                                          return;
-                                                        } else {
-                                                          if (_shouldSetState)
-                                                            safeSetState(() {});
-                                                          return;
-                                                        }
-
-                                                        if (_shouldSetState)
-                                                          safeSetState(() {});
-                                                      },
+                                                        },
+                                                      ),
                                                     ),
                                                   );
                                                 },
@@ -1203,6 +1258,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                               );
                                                               safeSetState(
                                                                   () {});
+                                                              _model
+                                                                  .updateProjectChatStruct(
+                                                                (e) => e
+                                                                  ..updateChatList(
+                                                                    (e) => e[functions.getLastChatIndex(_model
+                                                                        .projectChat!
+                                                                        .chatList
+                                                                        .toList())]
+                                                                      ..isDebugVisible =
+                                                                          false,
+                                                                  ),
+                                                              );
+                                                              safeSetState(
+                                                                  () {});
                                                               await Future.delayed(
                                                                   const Duration(
                                                                       milliseconds:
@@ -1220,6 +1289,24 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                                 curve:
                                                                     Curves.ease,
                                                               );
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          2000));
+                                                              _model
+                                                                  .updateProjectChatStruct(
+                                                                (e) => e
+                                                                  ..updateChatList(
+                                                                    (e) => e[functions.getLastChatIndex(_model
+                                                                        .projectChat!
+                                                                        .chatList
+                                                                        .toList())]
+                                                                      ..isDebugVisible =
+                                                                          true,
+                                                                  ),
+                                                              );
+                                                              safeSetState(
+                                                                  () {});
                                                             }
                                                             if (_shouldSetState)
                                                               safeSetState(

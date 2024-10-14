@@ -11,9 +11,11 @@ class ProjectDropdownWidget extends StatefulWidget {
   const ProjectDropdownWidget({
     super.key,
     required this.projectList,
+    required this.onProjectClick,
   });
 
   final List<dynamic>? projectList;
+  final Future Function(String projectId)? onProjectClick;
 
   @override
   State<ProjectDropdownWidget> createState() => _ProjectDropdownWidgetState();
@@ -97,26 +99,40 @@ class _ProjectDropdownWidgetState extends State<ProjectDropdownWidget> {
                       return Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 8.0, 0.0, 8.0),
-                            child: Text(
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            await widget.onProjectClick?.call(
                               getJsonField(
                                 projectItem,
-                                r'''$.project_name''',
+                                r'''$.project_id''',
                               ).toString(),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'GoogleSans',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 8.0, 0.0, 8.0),
+                              child: Text(
+                                getJsonField(
+                                  projectItem,
+                                  r'''$.project_name''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'GoogleSans',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
                             ),
                           ),
                         ),

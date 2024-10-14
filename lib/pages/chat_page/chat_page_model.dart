@@ -66,6 +66,8 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   ApiCallResponse? importStatusBtnResp;
   // State field(s) for chatListView widget.
   ScrollController? chatListView;
+  // Models for chatItem dynamic component.
+  late FlutterFlowDynamicModels<ChatItemModel> chatItemModels;
   // Stores action output result for [Backend Call - API (DebugResponse)] action in chatItem widget.
   ApiCallResponse? debugDetailResp;
   // State field(s) for Row widget.
@@ -91,6 +93,7 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
     primaryActionButtonModel =
         createModel(context, () => PrimaryActionButtonModel());
     chatListView = ScrollController();
+    chatItemModels = FlutterFlowDynamicModels(() => ChatItemModel());
     rowController = ScrollController();
   }
 
@@ -103,6 +106,7 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
     userAvatarModel.dispose();
     primaryActionButtonModel.dispose();
     chatListView?.dispose();
+    chatItemModels.dispose();
     rowController?.dispose();
     userChatFieldFocusNode?.dispose();
     userChatFieldTextController?.dispose();

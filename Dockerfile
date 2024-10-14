@@ -11,6 +11,10 @@ RUN dart --version
 COPY . .
 
 RUN flutter build web --release
+# RUN ls
+# RUN pwd
+# RUN cd build/web
+# RUN flutter create output
 
 FROM nginx:stable-alpine
 

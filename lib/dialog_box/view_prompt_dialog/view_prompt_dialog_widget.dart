@@ -138,6 +138,27 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(
+                      Icons.help_outline_sharp,
+                      color: Color(0xFF939393),
+                      size: 24.0,
+                    ),
+                    Text(
+                      'Hello World',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'GoogleSans',
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: TextFormField(
                   controller: _model.promptValueFieldTextController,
                   focusNode: _model.promptValueFieldFocusNode,
