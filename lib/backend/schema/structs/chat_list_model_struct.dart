@@ -10,8 +10,10 @@ class ChatListModelStruct extends BaseStruct {
   ChatListModelStruct({
     String? projectName,
     List<ChatStruct>? chatList,
+    List<String>? questions,
   })  : _projectName = projectName,
-        _chatList = chatList;
+        _chatList = chatList,
+        _questions = questions;
 
   // "project_name" field.
   String? _projectName;
@@ -31,6 +33,17 @@ class ChatListModelStruct extends BaseStruct {
 
   bool hasChatList() => _chatList != null;
 
+  // "questions" field.
+  List<String>? _questions;
+  List<String> get questions => _questions ?? const [];
+  set questions(List<String>? val) => _questions = val;
+
+  void updateQuestions(Function(List<String>) updateFn) {
+    updateFn(_questions ??= []);
+  }
+
+  bool hasQuestions() => _questions != null;
+
   static ChatListModelStruct fromMap(Map<String, dynamic> data) =>
       ChatListModelStruct(
         projectName: data['project_name'] as String?,
@@ -38,6 +51,7 @@ class ChatListModelStruct extends BaseStruct {
           data['chat_list'],
           ChatStruct.fromMap,
         ),
+        questions: getDataList(data['questions']),
       );
 
   static ChatListModelStruct? maybeFromMap(dynamic data) => data is Map
@@ -47,6 +61,7 @@ class ChatListModelStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'project_name': _projectName,
         'chat_list': _chatList?.map((e) => e.toMap()).toList(),
+        'questions': _questions,
       }.withoutNulls;
 
   @override
@@ -58,6 +73,11 @@ class ChatListModelStruct extends BaseStruct {
         'chat_list': serializeParam(
           _chatList,
           ParamType.DataStruct,
+          isList: true,
+        ),
+        'questions': serializeParam(
+          _questions,
+          ParamType.String,
           isList: true,
         ),
       }.withoutNulls;
@@ -75,6 +95,11 @@ class ChatListModelStruct extends BaseStruct {
           true,
           structBuilder: ChatStruct.fromSerializableMap,
         ),
+        questions: deserializeParam<String>(
+          data['questions'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -85,11 +110,13 @@ class ChatListModelStruct extends BaseStruct {
     const listEquality = ListEquality();
     return other is ChatListModelStruct &&
         projectName == other.projectName &&
-        listEquality.equals(chatList, other.chatList);
+        listEquality.equals(chatList, other.chatList) &&
+        listEquality.equals(questions, other.questions);
   }
 
   @override
-  int get hashCode => const ListEquality().hash([projectName, chatList]);
+  int get hashCode =>
+      const ListEquality().hash([projectName, chatList, questions]);
 }
 
 ChatListModelStruct createChatListModelStruct({

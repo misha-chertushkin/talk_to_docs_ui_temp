@@ -87,9 +87,10 @@ class _DeleteDocumentDialogWidgetState
                   Text(
                     'Delete Document?',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -116,10 +117,11 @@ class _DeleteDocumentDialogWidgetState
                 child: Text(
                   'Are you sure you want to delete this document?',
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -143,10 +145,11 @@ class _DeleteDocumentDialogWidgetState
                 child: Text(
                   'This action cannot be undone!',
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -157,8 +160,8 @@ class _DeleteDocumentDialogWidgetState
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        Navigator.pop(context);
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -170,10 +173,11 @@ class _DeleteDocumentDialogWidgetState
                         color: Colors.white,
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Color(0xFF0B57D0),
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderSide: BorderSide(
@@ -237,11 +241,12 @@ class _DeleteDocumentDialogWidgetState
                         color: Color(0xFFEA4335),
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Colors.white,
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(5.0),

@@ -85,8 +85,9 @@ class _ChatItemPhase2WidgetState extends State<ChatItemPhase2Widget> {
                     ),
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                 ),
@@ -194,11 +195,12 @@ class _ChatItemPhase2WidgetState extends State<ChatItemPhase2Widget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 6.0, 0.0),
                     color: Colors.white,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF0B57D0),
                           fontSize: 14.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
+                          useGoogleFonts: false,
                         ),
                     elevation: 0.0,
                     borderSide: BorderSide(

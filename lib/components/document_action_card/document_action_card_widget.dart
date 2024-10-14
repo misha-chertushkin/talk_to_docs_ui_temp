@@ -13,10 +13,12 @@ class DocumentActionCardWidget extends StatefulWidget {
     super.key,
     required this.fileName,
     required this.deleteAction,
+    required this.showDelete,
   });
 
   final String? fileName;
   final Future Function()? deleteAction;
+  final bool? showDelete;
 
   @override
   State<DocumentActionCardWidget> createState() =>
@@ -77,28 +79,30 @@ class _DocumentActionCardWidgetState extends State<DocumentActionCardWidget> {
                   widget!.fileName!,
                   maxLines: 1,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         color: Color(0xFF0B57D0),
                         fontSize: 12.0,
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
             ),
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 8.0,
-              buttonSize: 40.0,
-              icon: Icon(
-                Icons.delete_rounded,
-                color: Color(0xFFC1C1C1),
-                size: 24.0,
+            if (widget!.showDelete ?? true)
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.delete_rounded,
+                  color: Color(0xFFC1C1C1),
+                  size: 24.0,
+                ),
+                showLoadingIndicator: true,
+                onPressed: () async {
+                  await widget.deleteAction?.call();
+                },
               ),
-              showLoadingIndicator: true,
-              onPressed: () async {
-                await widget.deleteAction?.call();
-              },
-            ),
           ],
         ),
       ),

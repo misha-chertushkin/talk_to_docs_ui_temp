@@ -108,8 +108,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(
-                                        fontFamily: 'Outfit',
+                                        fontFamily: 'GoogleSans',
                                         letterSpacing: 0.0,
+                                        useGoogleFonts: false,
                                       ),
                                 ),
                               ),
@@ -127,8 +128,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(
-                                            fontFamily: 'Outfit',
+                                            fontFamily: 'GoogleSans',
                                             letterSpacing: 0.0,
+                                            useGoogleFonts: false,
                                           ),
                                     ),
                                     Padding(
@@ -139,8 +141,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'GoogleSans',
                                               letterSpacing: 0.0,
+                                              useGoogleFonts: false,
                                             ),
                                       ),
                                     ),
@@ -163,8 +166,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'GoogleSans',
                                                       letterSpacing: 0.0,
+                                                      useGoogleFonts: false,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -215,8 +219,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                fontFamily: 'GoogleSans',
                                                 letterSpacing: 0.0,
+                                                useGoogleFonts: false,
                                               ),
                                           keyboardType:
                                               TextInputType.emailAddress,
@@ -247,8 +252,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'GoogleSans',
                                                       letterSpacing: 0.0,
+                                                      useGoogleFonts: false,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -318,8 +324,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                fontFamily: 'GoogleSans',
                                                 letterSpacing: 0.0,
+                                                useGoogleFonts: false,
                                               ),
                                           validator: _model
                                               .passwordTextControllerValidator
@@ -361,9 +368,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'GoogleSans',
                                                     color: Colors.white,
                                                     letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
                                                   ),
                                           elevation: 3.0,
                                           borderSide: BorderSide(
@@ -437,9 +445,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'GoogleSans',
                                                     color: Colors.white,
                                                     letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
                                                   ),
                                           elevation: 3.0,
                                           borderSide: BorderSide(
@@ -471,20 +480,22 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'GoogleSans',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primary,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
+                                                    useGoogleFonts: false,
                                                   ),
                                             )
                                           ],
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                fontFamily: 'GoogleSans',
                                                 letterSpacing: 0.0,
+                                                useGoogleFonts: false,
                                               ),
                                         ),
                                       ),

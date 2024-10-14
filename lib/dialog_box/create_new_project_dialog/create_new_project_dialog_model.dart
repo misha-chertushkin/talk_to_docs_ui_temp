@@ -32,6 +32,16 @@ class CreateNewProjectDialogModel
 
   String errMsg = 'All fields are required!';
 
+  List<String> questionsList = [];
+  void addToQuestionsList(String item) => questionsList.add(item);
+  void removeFromQuestionsList(String item) => questionsList.remove(item);
+  void removeAtIndexFromQuestionsList(int index) =>
+      questionsList.removeAt(index);
+  void insertAtIndexInQuestionsList(int index, String item) =>
+      questionsList.insert(index, item);
+  void updateQuestionsListAtIndex(int index, Function(String) updateFn) =>
+      questionsList[index] = updateFn(questionsList[index]);
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for projectNameField widget.
@@ -39,6 +49,21 @@ class CreateNewProjectDialogModel
   TextEditingController? projectNameFieldTextController;
   String? Function(BuildContext, String?)?
       projectNameFieldTextControllerValidator;
+  // State field(s) for questionField1 widget.
+  FocusNode? questionField1FocusNode;
+  TextEditingController? questionField1TextController;
+  String? Function(BuildContext, String?)?
+      questionField1TextControllerValidator;
+  // State field(s) for questionField2 widget.
+  FocusNode? questionField2FocusNode;
+  TextEditingController? questionField2TextController;
+  String? Function(BuildContext, String?)?
+      questionField2TextControllerValidator;
+  // State field(s) for questionField3 widget.
+  FocusNode? questionField3FocusNode;
+  TextEditingController? questionField3TextController;
+  String? Function(BuildContext, String?)?
+      questionField3TextControllerValidator;
   // Stores action output result for [Custom Action - documentPicker] action in Button widget.
   List<FFUploadedFile>? returnedDocs;
   // State field(s) for GridView widget.
@@ -55,6 +80,15 @@ class CreateNewProjectDialogModel
   void dispose() {
     projectNameFieldFocusNode?.dispose();
     projectNameFieldTextController?.dispose();
+
+    questionField1FocusNode?.dispose();
+    questionField1TextController?.dispose();
+
+    questionField2FocusNode?.dispose();
+    questionField2TextController?.dispose();
+
+    questionField3FocusNode?.dispose();
+    questionField3TextController?.dispose();
 
     gridViewController?.dispose();
   }

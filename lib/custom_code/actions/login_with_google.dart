@@ -16,7 +16,7 @@ Future<GoogleLoginResponseStruct> loginWithGoogle() async {
   try {
     GoogleSignIn googleSignIn = GoogleSignIn(
       clientId:
-          '645660464319-0shaobpkrmkajun0028a1gu3jtanuoh7.apps.googleusercontent.com',
+          '1099239419018-lh1h4idkhbu80ismm65h4a62k9q3iau1.apps.googleusercontent.com',
       scopes: <String>[
         'email',
         'profile',

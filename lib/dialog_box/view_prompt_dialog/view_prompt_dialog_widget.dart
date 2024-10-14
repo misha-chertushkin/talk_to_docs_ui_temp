@@ -17,11 +17,13 @@ class ViewPromptDialogWidget extends StatefulWidget {
     required this.projectId,
     required this.onSavePromptSuccess,
     required this.promptDetail,
+    required this.isReadOnly,
   });
 
   final String? projectId;
   final Future Function()? onSavePromptSuccess;
   final PromptConfigurationStruct? promptDetail;
+  final bool? isReadOnly;
 
   @override
   State<ViewPromptDialogWidget> createState() => _ViewPromptDialogWidgetState();
@@ -90,9 +92,10 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
                   Text(
                     'View/Edit Prompt',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -123,10 +126,11 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
                     Text(
                       widget!.promptDetail!.promptDisplayName,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
+                            fontFamily: 'GoogleSans',
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
+                            useGoogleFonts: false,
                           ),
                     ),
                   ],
@@ -138,16 +142,18 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
                   controller: _model.promptValueFieldTextController,
                   focusNode: _model.promptValueFieldFocusNode,
                   autofocus: false,
+                  readOnly: widget!.isReadOnly!,
                   obscureText: false,
                   decoration: InputDecoration(
                     isDense: true,
                     hintText: 'Enter prompt',
                     hintStyle:
                         FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'GoogleSans',
                               color: Color(0xFF121212),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
                             ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -181,9 +187,10 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
                     fillColor: Colors.white,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         color: Color(0xFF121212),
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                   maxLines: 24,
                   minLines: 15,
@@ -192,94 +199,97 @@ class _ViewPromptDialogWidgetState extends State<ViewPromptDialogWidget> {
                       .asValidator(context),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FFButtonWidget(
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
-                      text: 'Cancel',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Colors.white,
-                        textStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Color(0xFF0B57D0),
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Color(0xFFC1C1C1),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        _model.changePromptResp =
-                            await TalkDocsGroup.changePromptCall.call(
-                          projectId: widget!.projectId,
-                          userId: FFAppState().googleLoginResponse.email,
-                          promptName: widget!.promptDetail?.promptName,
-                          promptValue:
-                              _model.promptValueFieldTextController.text,
-                        );
-
-                        if ((_model.changePromptResp?.succeeded ?? true)) {
+              if (!widget!.isReadOnly!)
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FFButtonWidget(
+                        onPressed: () async {
                           Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Prompt changed successfully!',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                          await widget.onSavePromptSuccess?.call();
-                        }
-
-                        safeSetState(() {});
-                      },
-                      text: 'Save Prompt',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFF0B57D0),
-                        textStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(5.0),
+                        },
+                        text: 'Restore to Default',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 20.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Colors.white,
+                          textStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'GoogleSans',
+                                    color: Color(0xFF0B57D0),
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 0.0,
+                          borderSide: BorderSide(
+                            color: Color(0xFFC1C1C1),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
                       ),
-                    ),
-                  ].divide(SizedBox(width: 24.0)),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          _model.changePromptResp =
+                              await TalkDocsGroup.changePromptCall.call(
+                            projectId: widget!.projectId,
+                            userId: FFAppState().googleLoginResponse.email,
+                            promptName: widget!.promptDetail?.promptName,
+                            promptValue:
+                                _model.promptValueFieldTextController.text,
+                          );
+
+                          if ((_model.changePromptResp?.succeeded ?? true)) {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Prompt changed successfully!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                            await widget.onSavePromptSuccess?.call();
+                          }
+
+                          safeSetState(() {});
+                        },
+                        text: 'Save Prompt',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 20.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFF0B57D0),
+                          textStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'GoogleSans',
+                                    color: Colors.white,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                    ].divide(SizedBox(width: 24.0)),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

@@ -89,11 +89,12 @@ class _IndividualMenuItemExpandedWidgetState
                   'My Menu Item',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: FFAppState().selectedMenu == widget!.positionIndex
                           ? Color(0xFF0B57D0)
                           : FlutterFlowTheme.of(context).secondaryText,
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                     ),
               ),
           ].divide(SizedBox(width: 16.0)),

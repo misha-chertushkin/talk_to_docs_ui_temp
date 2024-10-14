@@ -83,9 +83,10 @@ class _DuplicateProjectDialogWidgetState
                   Text(
                     'Duplicate Project',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -112,10 +113,11 @@ class _DuplicateProjectDialogWidgetState
                 child: Text(
                   'You are attempting to duplicate this project',
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -139,9 +141,10 @@ class _DuplicateProjectDialogWidgetState
                 child: Text(
                   'New Project Name',
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 14.0,
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -157,9 +160,10 @@ class _DuplicateProjectDialogWidgetState
                     hintText: 'Project Name',
                     hintStyle:
                         FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'GoogleSans',
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
                             ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -193,8 +197,9 @@ class _DuplicateProjectDialogWidgetState
                     fillColor: FlutterFlowTheme.of(context).info,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                   cursorColor: FlutterFlowTheme.of(context).primaryText,
                   validator: _model.projectNameFieldTextControllerValidator
@@ -287,10 +292,11 @@ class _DuplicateProjectDialogWidgetState
                         color: Colors.white,
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Color(0xFF0B57D0),
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderSide: BorderSide(
@@ -314,11 +320,12 @@ class _DuplicateProjectDialogWidgetState
                         color: Color(0xFF0B57D0),
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Colors.white,
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(5.0),

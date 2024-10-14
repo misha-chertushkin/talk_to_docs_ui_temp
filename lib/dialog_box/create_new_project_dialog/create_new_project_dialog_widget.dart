@@ -40,6 +40,15 @@ class _CreateNewProjectDialogWidgetState
     _model.projectNameFieldTextController ??= TextEditingController();
     _model.projectNameFieldFocusNode ??= FocusNode();
 
+    _model.questionField1TextController ??= TextEditingController();
+    _model.questionField1FocusNode ??= FocusNode();
+
+    _model.questionField2TextController ??= TextEditingController();
+    _model.questionField2FocusNode ??= FocusNode();
+
+    _model.questionField3TextController ??= TextEditingController();
+    _model.questionField3FocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -85,9 +94,10 @@ class _CreateNewProjectDialogWidgetState
                   Text(
                     'Create New Project',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -112,11 +122,12 @@ class _CreateNewProjectDialogWidgetState
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 10.0),
                 child: Text(
-                  'Project Name',
+                  'Project Name(*)',
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 14.0,
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -129,9 +140,10 @@ class _CreateNewProjectDialogWidgetState
                   isDense: true,
                   hintText: 'Project Name',
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
+                        useGoogleFonts: false,
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -165,12 +177,195 @@ class _CreateNewProjectDialogWidgetState
                   fillColor: FlutterFlowTheme.of(context).info,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                     ),
                 cursorColor: FlutterFlowTheme.of(context).primaryText,
                 validator: _model.projectNameFieldTextControllerValidator
                     .asValidator(context),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 10.0),
+                child: Text(
+                  'Initial Questions',
+                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                        fontFamily: 'GoogleSans',
+                        fontSize: 14.0,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                ),
+              ),
+              TextFormField(
+                controller: _model.questionField1TextController,
+                focusNode: _model.questionField1FocusNode,
+                autofocus: false,
+                obscureText: false,
+                decoration: InputDecoration(
+                  isDense: true,
+                  hintText: 'Enter Question 1',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'GoogleSans',
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.normal,
+                        useGoogleFonts: false,
+                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).info,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'GoogleSans',
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
+                cursorColor: FlutterFlowTheme.of(context).primaryText,
+                validator: _model.questionField1TextControllerValidator
+                    .asValidator(context),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: TextFormField(
+                  controller: _model.questionField2TextController,
+                  focusNode: _model.questionField2FocusNode,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: 'Enter Question 2',
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'GoogleSans',
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
+                            ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).info,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'GoogleSans',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                  validator: _model.questionField2TextControllerValidator
+                      .asValidator(context),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: TextFormField(
+                  controller: _model.questionField3TextController,
+                  focusNode: _model.questionField3FocusNode,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: 'Enter Question 3',
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'GoogleSans',
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
+                            ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).info,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'GoogleSans',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                  validator: _model.questionField3TextControllerValidator
+                      .asValidator(context),
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 10.0),
@@ -181,9 +376,10 @@ class _CreateNewProjectDialogWidgetState
                     Text(
                       'Upload Documents(*)',
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
+                            fontFamily: 'GoogleSans',
                             fontSize: 14.0,
                             letterSpacing: 0.0,
+                            useGoogleFonts: false,
                           ),
                     ),
                     FFButtonWidget(
@@ -217,9 +413,10 @@ class _CreateNewProjectDialogWidgetState
                         color: FlutterFlowTheme.of(context).info,
                         textStyle:
                             FlutterFlowTheme.of(context).bodySmall.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: FlutterFlowTheme.of(context).primary,
                                   letterSpacing: 0.0,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderSide: BorderSide(
@@ -266,6 +463,7 @@ class _CreateNewProjectDialogWidgetState
                                       'Keyn6s_${selectedFilesIndex}_of_${selectedFiles.length}'),
                                   fileName:
                                       functions.getFileName(selectedFilesItem)!,
+                                  showDelete: true,
                                   deleteAction: () async {
                                     _model.removeAtIndexFromDocsToUpload(
                                         selectedFilesIndex);
@@ -286,10 +484,11 @@ class _CreateNewProjectDialogWidgetState
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'GoogleSans',
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
+                                useGoogleFonts: false,
                               ),
                         ),
                       );
@@ -303,11 +502,12 @@ class _CreateNewProjectDialogWidgetState
                   child: Text(
                     _model.errMsg,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: FlutterFlowTheme.of(context).error,
                           fontSize: 16.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
+                          useGoogleFonts: false,
                         ),
                   ),
                 ),
@@ -321,8 +521,23 @@ class _CreateNewProjectDialogWidgetState
                         (_model.docsToUpload.isNotEmpty)) {
                       _model.errorVisibility = false;
                       safeSetState(() {});
+                      _model.addToQuestionsList(
+                          _model.questionField1TextController.text);
+                      safeSetState(() {});
+                      _model.addToQuestionsList(
+                          _model.questionField2TextController.text);
+                      safeSetState(() {});
+                      _model.addToQuestionsList(
+                          _model.questionField3TextController.text);
+                      safeSetState(() {});
+                      _model.questionsList = _model.questionsList
+                          .where((e) => e != null && e != '')
+                          .toList()
+                          .cast<String>();
+                      safeSetState(() {});
                     } else {
-                      _model.errMsg = 'All fields are required!';
+                      _model.errMsg =
+                          'Project name and documents are required!';
                       _model.errorVisibility = true;
                       safeSetState(() {});
                       if (_shouldSetState) safeSetState(() {});
@@ -334,6 +549,8 @@ class _CreateNewProjectDialogWidgetState
                       projectName: _model.projectNameFieldTextController.text,
                       userId: FFAppState().googleLoginResponse.email,
                       filesList: _model.docsToUpload,
+                      questions: functions.getQuestionsJsonFromList(
+                          _model.questionsList.toList()),
                     );
 
                     _shouldSetState = true;
@@ -396,10 +613,11 @@ class _CreateNewProjectDialogWidgetState
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: FlutterFlowTheme.of(context).info,
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(5.0),

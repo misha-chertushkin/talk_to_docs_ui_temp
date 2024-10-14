@@ -65,8 +65,9 @@ class _DocumentOrProjectCardWidgetState
             Text(
               widget!.documentorProjectName,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
+                    fontFamily: 'GoogleSans',
                     letterSpacing: 0.0,
+                    useGoogleFonts: false,
                   ),
             ),
           ].divide(SizedBox(width: 12.0)),

@@ -64,9 +64,10 @@ class _UserFeedbackLikeWidgetState extends State<UserFeedbackLikeWidget> {
                   Text(
                     'How would you rate this response?',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 16.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -108,18 +109,20 @@ class _UserFeedbackLikeWidgetState extends State<UserFeedbackLikeWidget> {
                     '1',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF0B57D0),
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   Text(
                     '10',
                     textAlign: TextAlign.end,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF0B57D0),
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                 ],
@@ -135,20 +138,22 @@ class _UserFeedbackLikeWidgetState extends State<UserFeedbackLikeWidget> {
                     'Poor',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF0B57D0),
                           fontSize: 8.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   Text(
                     'Excellent',
                     textAlign: TextAlign.end,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF0B57D0),
                           fontSize: 8.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                 ],
@@ -171,10 +176,11 @@ class _UserFeedbackLikeWidgetState extends State<UserFeedbackLikeWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: Color(0xFFD3E3FD),
                     textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           color: Color(0xFF303030),
                           fontSize: 10.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(0.0),

@@ -15,7 +15,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
 class TalkDocsGroup {
   static String getBaseUrl() =>
-      'https://test-misha-deploy-wbkml5x37q-uc.a.run.app';
+      'https://t2x-api-1099239419018.us-central1.run.app';
   static Map<String, String> headers = {};
   static CreateProjectCall createProjectCall = CreateProjectCall();
   static ProjectDetailsCall projectDetailsCall = ProjectDetailsCall();
@@ -34,6 +34,7 @@ class CreateProjectCall {
     String? projectName = '',
     String? userId = '',
     List<FFUploadedFile>? filesList,
+    String? questions = '',
   }) async {
     final baseUrl = TalkDocsGroup.getBaseUrl();
     final files = filesList ?? [];
@@ -47,6 +48,7 @@ class CreateProjectCall {
         'project_name': projectName,
         'user_id': userId,
         'files': files,
+        'questions': questions,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -99,6 +101,15 @@ class ProjectDetailsCall {
         r'''$.documents''',
         true,
       ) as List?;
+  List<String>? questionsList(dynamic response) => (getJsonField(
+        response,
+        r'''$.questions''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ChangePromptCall {

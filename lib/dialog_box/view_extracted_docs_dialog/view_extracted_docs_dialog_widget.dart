@@ -81,9 +81,10 @@ class _ViewExtractedDocsDialogWidgetState
                   Text(
                     'Extracted Document View',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'GoogleSans',
                           fontSize: 14.0,
                           letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -110,10 +111,11 @@ class _ViewExtractedDocsDialogWidgetState
                 child: Text(
                   widget!.documentName!,
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        useGoogleFonts: false,
                       ),
                 ),
               ),
@@ -140,8 +142,9 @@ class _ViewExtractedDocsDialogWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   letterSpacing: 0.0,
+                                  useGoogleFonts: false,
                                 ),
                           ),
                         ),

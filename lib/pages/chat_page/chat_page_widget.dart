@@ -5,6 +5,7 @@ import '/components/chat_item/chat_item_widget.dart';
 import '/components/loader/loader_widget.dart';
 import '/components/menu_bar/menu_bar_widget.dart';
 import '/components/primary_action_button/primary_action_button_widget.dart';
+import '/components/project_dropdown/project_dropdown_widget.dart';
 import '/components/project_title/project_title_widget.dart';
 import '/components/secondary_action_button/secondary_action_button_widget.dart';
 import '/components/user_avatar/user_avatar_widget.dart';
@@ -13,6 +14,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/phase2_components/prompt_questions/prompt_questions_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -47,26 +51,32 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (FFAppState().googleLoginResponse.responseStatus) {
-        showDialog(
-          barrierColor: FlutterFlowTheme.of(context).loaderBg,
-          barrierDismissible: false,
-          context: context,
-          builder: (dialogContext) {
-            return Dialog(
-              elevation: 0,
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              alignment: AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              child: GestureDetector(
-                onTap: () => FocusScope.of(dialogContext).unfocus(),
-                child: LoaderWidget(),
-              ),
-            );
-          },
-        );
+      FFAppState().selectedMenu = 1;
+      safeSetState(() {});
+      showDialog(
+        barrierColor: FlutterFlowTheme.of(context).loaderBg,
+        barrierDismissible: false,
+        context: context,
+        builder: (dialogContext) {
+          return Dialog(
+            elevation: 0,
+            insetPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            alignment: AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            child: GestureDetector(
+              onTap: () => FocusScope.of(dialogContext).unfocus(),
+              child: LoaderWidget(),
+            ),
+          );
+        },
+      );
 
+      _model.allProjectResponse = await TalkDocsGroup.allProjectsCall.call(
+        userId: FFAppState().googleLoginResponse.email,
+      );
+
+      if ((_model.allProjectResponse?.succeeded ?? true)) {
         _model.previousChatResp = await TalkDocsGroup.previousChatCall.call(
           userId: FFAppState().googleLoginResponse.email,
           clientProjectId: widget!.projectId,
@@ -121,20 +131,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
               backgroundColor: FlutterFlowTheme.of(context).secondary,
             ),
           );
+          Navigator.pop(context);
           return;
         }
       } else {
-        context.goNamed(
-          'Login',
-          extra: <String, dynamic>{
-            kTransitionInfoKey: TransitionInfo(
-              hasTransition: true,
-              transitionType: PageTransitionType.fade,
-              duration: Duration(milliseconds: 0),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Something went worng!',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
             ),
-          },
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
         );
-
+        Navigator.pop(context);
         return;
       }
     });
@@ -209,13 +222,64 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        wrapWithModel(
-                                          model: _model.projectTitleModel,
-                                          updateCallback: () =>
-                                              safeSetState(() {}),
-                                          child: ProjectTitleWidget(
-                                            title:
-                                                _model.projectChat!.projectName,
+                                        Builder(
+                                          builder: (context) => InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              showAlignedDialog(
+                                                barrierColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                isGlobal: false,
+                                                avoidOverflow: false,
+                                                targetAnchor:
+                                                    AlignmentDirectional(
+                                                            0.5, 10.0)
+                                                        .resolve(
+                                                            Directionality.of(
+                                                                context)),
+                                                followerAnchor:
+                                                    AlignmentDirectional(
+                                                            0.0, 0.0)
+                                                        .resolve(
+                                                            Directionality.of(
+                                                                context)),
+                                                builder: (dialogContext) {
+                                                  return Material(
+                                                    color: Colors.transparent,
+                                                    child: GestureDetector(
+                                                      onTap: () =>
+                                                          FocusScope.of(
+                                                                  dialogContext)
+                                                              .unfocus(),
+                                                      child:
+                                                          ProjectDropdownWidget(
+                                                        projectList:
+                                                            TalkDocsGroup
+                                                                .allProjectsCall
+                                                                .projectsList(
+                                                          (_model.allProjectResponse
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        )!,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: wrapWithModel(
+                                              model: _model.projectTitleModel,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: ProjectTitleWidget(
+                                                title: _model
+                                                    .projectChat!.projectName,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         Expanded(
@@ -257,12 +321,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                           },
                                           child: wrapWithModel(
                                             model: _model
-                                                .secondaryActionButtonModel,
+                                                .secondaryActionButtonModel1,
                                             updateCallback: () =>
                                                 safeSetState(() {}),
                                             child: SecondaryActionButtonWidget(
                                               actionName:
-                                                  'View Project Details',
+                                                  'Project Configuration',
                                               actionIcon: Icon(
                                                 Icons.info_rounded,
                                                 color: Color(0xFF717171),
@@ -270,7 +334,24 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                               ),
                                               actionIconColor:
                                                   Color(0xFF717171),
+                                              hasIcon: true,
                                             ),
+                                          ),
+                                        ),
+                                        wrapWithModel(
+                                          model: _model
+                                              .secondaryActionButtonModel2,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          child: SecondaryActionButtonWidget(
+                                            actionName: 'Clear Chat',
+                                            actionIcon: Icon(
+                                              Icons.clear_all_rounded,
+                                              color: Color(0xFFEA4335),
+                                              size: 24.0,
+                                            ),
+                                            actionIconColor: Color(0xFFEA4335),
+                                            hasIcon: true,
                                           ),
                                         ),
                                         wrapWithModel(
@@ -299,10 +380,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .displayLarge
                                                 .override(
-                                                  fontFamily: 'Outfit',
+                                                  fontFamily: 'GoogleSans',
                                                   fontSize: 48.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
+                                                  useGoogleFonts: false,
                                                 ),
                                             colors: [
                                               Color(0xFF1967D2),
@@ -319,18 +401,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             children: [
                                               Text(
                                                 'some functionality might be limited',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displayMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color:
-                                                              Color(0xFFC4C7C5),
-                                                          fontSize: 40.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .displayMedium
+                                                    .override(
+                                                      fontFamily: 'GoogleSans',
+                                                      color: Color(0xFFC4C7C5),
+                                                      fontSize: 40.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: false,
+                                                    ),
                                               ),
                                               Lottie.network(
                                                 'https://lottie.host/d9b3ecac-a40b-4654-9861-cc35a2eb0f72/Aiy01nrxIX.json',
@@ -482,10 +564,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .displayLarge
                                                 .override(
-                                                  fontFamily: 'Outfit',
+                                                  fontFamily: 'GoogleSans',
                                                   fontSize: 48.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
+                                                  useGoogleFonts: false,
                                                 ),
                                             colors: [
                                               Color(0xFF1967D2),
@@ -502,18 +585,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             children: [
                                               Text(
                                                 'you can now Talk2Docs!',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displayMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color:
-                                                              Color(0xFFC4C7C5),
-                                                          fontSize: 40.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .displayMedium
+                                                    .override(
+                                                      fontFamily: 'GoogleSans',
+                                                      color: Color(0xFFC4C7C5),
+                                                      fontSize: 40.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: false,
+                                                    ),
                                               ),
                                               Lottie.network(
                                                 'https://lottie.host/d9b3ecac-a40b-4654-9861-cc35a2eb0f72/Aiy01nrxIX.json',
@@ -549,7 +632,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                   0,
                                                   40.0,
                                                   0,
-                                                  60.0,
+                                                  160.0,
                                                 ),
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
@@ -722,10 +805,67 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.stretch,
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final question = _model
+                                                      .projectChat?.questions
+                                                      ?.toList() ??
+                                                  [];
+
+                                              return SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                controller:
+                                                    _model.rowController,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: List.generate(
+                                                      question.length,
+                                                      (questionIndex) {
+                                                    final questionItem =
+                                                        question[questionIndex];
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        safeSetState(() {
+                                                          _model.userChatFieldTextController
+                                                                  ?.text =
+                                                              questionItem;
+                                                          _model.userChatFieldTextController
+                                                                  ?.selection =
+                                                              TextSelection.collapsed(
+                                                                  offset: _model
+                                                                      .userChatFieldTextController!
+                                                                      .text
+                                                                      .length);
+                                                        });
+                                                      },
+                                                      child:
+                                                          PromptQuestionsWidget(
+                                                        key: Key(
+                                                            'Keytg4_${questionIndex}_of_${question.length}'),
+                                                        promptQuestion:
+                                                            questionItem,
+                                                      ),
+                                                    );
+                                                  }).divide(
+                                                      SizedBox(width: 20.0)),
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
@@ -849,6 +989,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                             ),
                                                         );
                                                         safeSetState(() {});
+                                                        _model
+                                                            .updateProjectChatStruct(
+                                                          (e) => e
+                                                            ..updateChatList(
+                                                              (e) => e[functions
+                                                                  .getLastChatIndex(_model
+                                                                      .projectChat!
+                                                                      .chatList
+                                                                      .toList())]
+                                                                ..isDebugVisible =
+                                                                    false,
+                                                            ),
+                                                        );
+                                                        safeSetState(() {});
                                                         await Future.delayed(
                                                             const Duration(
                                                                 milliseconds:
@@ -865,11 +1019,29 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                                   200),
                                                           curve: Curves.ease,
                                                         );
+                                                        await Future.delayed(
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    2000));
+                                                        _model
+                                                            .updateProjectChatStruct(
+                                                          (e) => e
+                                                            ..updateChatList(
+                                                              (e) => e[functions
+                                                                  .getLastChatIndex(_model
+                                                                      .projectChat!
+                                                                      .chatList
+                                                                      .toList())]
+                                                                ..isDebugVisible =
+                                                                    true,
+                                                            ),
+                                                        );
+                                                        safeSetState(() {});
                                                       }
                                                       if (_shouldSetState)
                                                         safeSetState(() {});
                                                     },
-                                                    autofocus: false,
+                                                    autofocus: true,
                                                     textInputAction:
                                                         TextInputAction.done,
                                                     obscureText: false,
@@ -891,8 +1063,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
-                                                              'Readex Pro',
+                                                              'GoogleSans',
                                                           letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
                                                           lineHeight: 1.5,
                                                         ),
                                                     maxLines: 10,
@@ -903,179 +1076,180 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                              Builder(
-                                                builder: (context) {
-                                                  if (!_model.sendingChat) {
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  5.0,
-                                                                  15.0,
-                                                                  5.0),
-                                                      child:
-                                                          FlutterFlowIconButton(
-                                                        borderColor:
-                                                            Colors.transparent,
-                                                        borderRadius: 20.0,
-                                                        borderWidth: 1.0,
-                                                        buttonSize: 40.0,
-                                                        icon: Icon(
-                                                          Icons.send_rounded,
-                                                          color:
-                                                              Color(0xFF202124),
-                                                          size: 24.0,
-                                                        ),
-                                                        onPressed: () async {
-                                                          var _shouldSetState =
-                                                              false;
-                                                          if (_model.userChatFieldTextController
-                                                                      .text !=
-                                                                  null &&
-                                                              _model.userChatFieldTextController
-                                                                      .text !=
-                                                                  '') {
-                                                            _model
-                                                                .updateProjectChatStruct(
-                                                              (e) => e
-                                                                ..updateChatList(
-                                                                  (e) => e.add(
-                                                                      ChatStruct(
-                                                                    message: _model
-                                                                        .userChatFieldTextController
-                                                                        .text,
-                                                                    isAi: false,
-                                                                    responseId:
-                                                                        ' ',
-                                                                  )),
-                                                                ),
-                                                            );
-                                                            _model.sendingChat =
-                                                                true;
-                                                            safeSetState(() {});
-                                                            safeSetState(() {
-                                                              _model
-                                                                  .userChatFieldTextController
-                                                                  ?.clear();
-                                                            });
-                                                            await Future.delayed(
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        100));
-                                                            await _model
-                                                                .chatListView
-                                                                ?.animateTo(
-                                                              _model
-                                                                  .chatListView!
-                                                                  .position
-                                                                  .maxScrollExtent,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      200),
-                                                              curve:
-                                                                  Curves.ease,
-                                                            );
-                                                            await Future.delayed(
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        100));
-                                                          } else {
-                                                            if (_shouldSetState)
-                                                              safeSetState(
-                                                                  () {});
-                                                            return;
-                                                          }
-
-                                                          _model.chatResp =
-                                                              await TalkDocsGroup
-                                                                  .chatCall
-                                                                  .call(
-                                                            message: _model
-                                                                .projectChat
-                                                                ?.chatList
-                                                                ?.last
-                                                                ?.message,
-                                                            userId: FFAppState()
-                                                                .googleLoginResponse
-                                                                .email,
-                                                            clientProjectId:
-                                                                widget!
-                                                                    .projectId,
-                                                          );
-
-                                                          _shouldSetState =
-                                                              true;
-                                                          _model.sendingChat =
-                                                              false;
-                                                          safeSetState(() {});
-                                                          if ((_model.chatResp
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            _model
-                                                                .updateProjectChatStruct(
-                                                              (e) => e
-                                                                ..updateChatList(
-                                                                  (e) => e.add(ChatStruct
-                                                                      .maybeFromMap((_model
-                                                                              .chatResp
-                                                                              ?.jsonBody ??
-                                                                          ''))!),
-                                                                ),
-                                                            );
-                                                            safeSetState(() {});
-                                                            await Future.delayed(
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        200));
-                                                            await _model
-                                                                .chatListView
-                                                                ?.animateTo(
-                                                              _model
-                                                                  .chatListView!
-                                                                  .position
-                                                                  .maxScrollExtent,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      200),
-                                                              curve:
-                                                                  Curves.ease,
-                                                            );
-                                                          }
-                                                          if (_shouldSetState)
-                                                            safeSetState(() {});
-                                                        },
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Padding(
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 10.0, 0.0),
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    if (!_model.sendingChat) {
+                                                      return Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
-                                                                    0.0,
-                                                                    10.0,
-                                                                    0.0),
+                                                                    5.0,
+                                                                    15.0,
+                                                                    5.0),
+                                                        child:
+                                                            FlutterFlowIconButton(
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 1.0,
+                                                          buttonSize: 40.0,
+                                                          icon: Icon(
+                                                            Icons.send_rounded,
+                                                            color: Color(
+                                                                0xFF202124),
+                                                            size: 24.0,
+                                                          ),
+                                                          onPressed: () async {
+                                                            var _shouldSetState =
+                                                                false;
+                                                            if (_model.userChatFieldTextController
+                                                                        .text !=
+                                                                    null &&
+                                                                _model.userChatFieldTextController
+                                                                        .text !=
+                                                                    '') {
+                                                              _model
+                                                                  .updateProjectChatStruct(
+                                                                (e) => e
+                                                                  ..updateChatList(
+                                                                    (e) => e.add(
+                                                                        ChatStruct(
+                                                                      message: _model
+                                                                          .userChatFieldTextController
+                                                                          .text,
+                                                                      isAi:
+                                                                          false,
+                                                                      responseId:
+                                                                          ' ',
+                                                                    )),
+                                                                  ),
+                                                              );
+                                                              _model.sendingChat =
+                                                                  true;
+                                                              safeSetState(
+                                                                  () {});
+                                                              safeSetState(() {
+                                                                _model
+                                                                    .userChatFieldTextController
+                                                                    ?.clear();
+                                                              });
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          100));
+                                                              await _model
+                                                                  .chatListView
+                                                                  ?.animateTo(
+                                                                _model
+                                                                    .chatListView!
+                                                                    .position
+                                                                    .maxScrollExtent,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        200),
+                                                                curve:
+                                                                    Curves.ease,
+                                                              );
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          100));
+                                                            } else {
+                                                              if (_shouldSetState)
+                                                                safeSetState(
+                                                                    () {});
+                                                              return;
+                                                            }
+
+                                                            _model.chatResp =
+                                                                await TalkDocsGroup
+                                                                    .chatCall
+                                                                    .call(
+                                                              message: _model
+                                                                  .projectChat
+                                                                  ?.chatList
+                                                                  ?.last
+                                                                  ?.message,
+                                                              userId: FFAppState()
+                                                                  .googleLoginResponse
+                                                                  .email,
+                                                              clientProjectId:
+                                                                  widget!
+                                                                      .projectId,
+                                                            );
+
+                                                            _shouldSetState =
+                                                                true;
+                                                            _model.sendingChat =
+                                                                false;
+                                                            safeSetState(() {});
+                                                            if ((_model.chatResp
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              _model
+                                                                  .updateProjectChatStruct(
+                                                                (e) => e
+                                                                  ..updateChatList(
+                                                                    (e) => e.add(ChatStruct.maybeFromMap((_model
+                                                                            .chatResp
+                                                                            ?.jsonBody ??
+                                                                        ''))!),
+                                                                  ),
+                                                              );
+                                                              safeSetState(
+                                                                  () {});
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          200));
+                                                              await _model
+                                                                  .chatListView
+                                                                  ?.animateTo(
+                                                                _model
+                                                                    .chatListView!
+                                                                    .position
+                                                                    .maxScrollExtent,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        200),
+                                                                curve:
+                                                                    Curves.ease,
+                                                              );
+                                                            }
+                                                            if (_shouldSetState)
+                                                              safeSetState(
+                                                                  () {});
+                                                          },
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0.0, 0.0),
                                                         child: Lottie.network(
                                                           'https://lottie.host/f11ceba6-48e7-4f60-9587-8a7e4700f3e1/F9qFshmMJO.json',
-                                                          width: 50.0,
-                                                          height: 50.0,
+                                                          width: 48.0,
+                                                          height: 48.0,
                                                           fit: BoxFit.contain,
                                                           animate: true,
                                                         ),
-                                                      ),
-                                                    );
-                                                  }
-                                                },
+                                                      );
+                                                    }
+                                                  },
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ].divide(SizedBox(height: 32.0)),
+                                      ]
+                                          .divide(SizedBox(height: 16.0))
+                                          .addToStart(SizedBox(height: 20.0)),
                                     ),
                                   ),
                                 ].addToStart(SizedBox(height: 0.0)),

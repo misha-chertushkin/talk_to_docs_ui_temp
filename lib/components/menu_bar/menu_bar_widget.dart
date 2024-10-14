@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/components/button_filled_expanded/button_filled_expanded_widget.dart';
 import '/components/individual_menu_item_expanded/individual_menu_item_expanded_widget.dart';
 import '/dialog_box/create_new_project_dialog/create_new_project_dialog_widget.dart';
@@ -94,26 +93,13 @@ class _MenuBarWidgetState extends State<MenuBarWidget> {
                     ),
                   ),
                   if (FFAppState().navOpen == true)
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        FFAppState().googleLoginResponse =
-                            GoogleLoginResponseStruct();
-                        safeSetState(() {});
-
-                        context.pushNamed('Login');
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/google_cloud_logo.png',
-                          width: 170.0,
-                          height: 95.0,
-                          fit: BoxFit.contain,
-                        ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/images/google_cloud_logo.png',
+                        width: 170.0,
+                        height: 95.0,
+                        fit: BoxFit.contain,
                       ),
                     ),
                 ].divide(SizedBox(width: 20.0)),

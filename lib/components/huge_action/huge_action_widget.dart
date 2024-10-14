@@ -64,10 +64,11 @@ class _HugeActionWidgetState extends State<HugeActionWidget> {
             Text(
               'Create a new project',
               style: FlutterFlowTheme.of(context).headlineLarge.override(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'GoogleSans',
                     fontSize: 30.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
+                    useGoogleFonts: false,
                   ),
             ),
           ].divide(SizedBox(height: 20.0)),

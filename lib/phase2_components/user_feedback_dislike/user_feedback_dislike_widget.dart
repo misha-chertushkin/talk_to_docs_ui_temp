@@ -77,9 +77,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                   'Help us getting better!',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         fontSize: 16.0,
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                 ),
                 FlutterFlowIconButton(
@@ -102,9 +103,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
           Text(
             'What didn’t you like about the response?',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Readex Pro',
+                  fontFamily: 'GoogleSans',
                   color: Color(0xFF444746),
                   letterSpacing: 0.0,
+                  useGoogleFonts: false,
                 ),
           ),
           Column(
@@ -123,9 +125,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: Color(0xFFD3E3FD),
                   textStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         color: Color(0xFF1A73E8),
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                   elevation: 0.0,
                   borderSide: BorderSide(
@@ -148,9 +151,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: Color(0xFFD3E3FD),
                   textStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         color: Color(0xFF1A73E8),
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                   elevation: 0.0,
                   borderSide: BorderSide(
@@ -173,9 +177,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: Color(0xFFD3E3FD),
                   textStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'GoogleSans',
                         color: Color(0xFF1A73E8),
                         letterSpacing: 0.0,
+                        useGoogleFonts: false,
                       ),
                   elevation: 0.0,
                   borderSide: BorderSide(
@@ -197,9 +202,10 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
               decoration: InputDecoration(
                 hintText: 'Provide Feedback|',
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w300,
+                      useGoogleFonts: false,
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -232,8 +238,9 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                 filled: true,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
+                    fontFamily: 'GoogleSans',
                     letterSpacing: 0.0,
+                    useGoogleFonts: false,
                   ),
               validator: _model.textControllerValidator.asValidator(context),
             ),
@@ -260,10 +267,11 @@ class _UserFeedbackDislikeWidgetState extends State<UserFeedbackDislikeWidget> {
                       color: Color(0xFF0B57D0),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'GoogleSans',
                                 color: Colors.white,
                                 fontSize: 14.0,
                                 letterSpacing: 0.0,
+                                useGoogleFonts: false,
                               ),
                       elevation: 0.0,
                       borderSide: BorderSide(

@@ -20,7 +20,6 @@ String? changeDateTimeFormat(String dateTime) {
   // change dateTime from "2024-09-30T15:50:31.906870+00:00" format to dd MMM yyyy hh:mm
   DateTime parsedDateTime = DateTime.parse(dateTime);
   String formattedDateTime = DateFormat('MMM dd yyyy').format(parsedDateTime);
-  // String formattedDateTime = DateFormat('MMM dd yyyy\nHH:mm').format(parsedDateTime);
   return formattedDateTime;
 }
 
@@ -33,4 +32,18 @@ bool isLastUserChat(
   } else {
     return false;
   }
+}
+
+String? getQuestionsJsonFromList(List<String> questions) {
+  if (questions.isNotEmpty) {
+    Map<String, List<String>> questionsMap = {'questions': questions};
+    String questionsJson = jsonEncode(questionsMap);
+    return questionsJson;
+  } else {
+    return null;
+  }
+}
+
+int getLastChatIndex(List<ChatStruct> chatList) {
+  return chatList.length - 1;
 }

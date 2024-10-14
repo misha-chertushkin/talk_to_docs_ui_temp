@@ -59,10 +59,11 @@ class _DebugScreenItemWidgetState extends State<DebugScreenItemWidget> {
             Text(
               widget!.title,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    fontFamily: 'Readex Pro',
+                    fontFamily: 'GoogleSans',
                     color: Color(0xFF717171),
                     fontSize: 14.0,
                     letterSpacing: 0.0,
+                    useGoogleFonts: false,
                   ),
             ),
             Padding(
@@ -75,14 +76,20 @@ class _DebugScreenItemWidgetState extends State<DebugScreenItemWidget> {
                     color: FlutterFlowTheme.of(context).accent4,
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
-                    widget!.text,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0.0,
-                        ),
+                child: Align(
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: SelectionArea(
+                        child: Text(
+                      widget!.text,
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'GoogleSans',
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
+                    )),
                   ),
                 ),
               ),

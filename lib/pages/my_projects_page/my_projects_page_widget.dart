@@ -40,6 +40,8 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (FFAppState().googleLoginResponse.responseStatus) {
+        FFAppState().selectedMenu = 2;
+        safeSetState(() {});
         showDialog(
           barrierColor: FlutterFlowTheme.of(context).loaderBg,
           barrierDismissible: false,
@@ -90,16 +92,7 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
           return;
         }
       } else {
-        context.pushNamed(
-          'Login',
-          extra: <String, dynamic>{
-            kTransitionInfoKey: TransitionInfo(
-              hasTransition: true,
-              transitionType: PageTransitionType.fade,
-              duration: Duration(milliseconds: 0),
-            ),
-          },
-        );
+        context.pushNamed('Login');
 
         return;
       }
@@ -168,10 +161,11 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            fontFamily: 'Outfit',
+                                            fontFamily: 'GoogleSans',
                                             color: Color(0xFF121212),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
                                           ),
                                     ),
                                     Expanded(
@@ -342,7 +336,7 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                   .labelLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'GoogleSansText',
                                                                     color: Color(
                                                                         0xFF0B57D0),
                                                                     fontSize:
@@ -352,6 +346,8 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
                                                             ),
                                                           ),
@@ -368,7 +364,7 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                   .labelLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'GoogleSansText',
                                                                     color: Color(
                                                                         0xFF0B57D0),
                                                                     fontSize:
@@ -378,6 +374,8 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
                                                             ),
                                                           ),
@@ -394,7 +392,7 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                   .labelLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'GoogleSansText',
                                                                     color: Color(
                                                                         0xFF0B57D0),
                                                                     fontSize:
@@ -404,6 +402,8 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
                                                             ),
                                                           ),
@@ -420,7 +420,7 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                   .labelLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'GoogleSansText',
                                                                     color: Color(
                                                                         0xFF0B57D0),
                                                                     fontSize:
@@ -430,6 +430,8 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
                                                             ),
                                                           ),
@@ -458,21 +460,25 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                 projectListItem,
                                                                 r'''$.project_id''',
                                                               ).toString();
-                                                              FFAppState()
-                                                                  .selectedMenu = 1;
                                                               safeSetState(
                                                                   () {});
 
                                                               context.pushNamed(
-                                                                'chatPage',
+                                                                'projectDetailsPage',
                                                                 queryParameters:
                                                                     {
-                                                                  'projectId':
+                                                                  'projectID':
                                                                       serializeParam(
                                                                     getJsonField(
                                                                       projectListItem,
                                                                       r'''$.project_id''',
                                                                     ).toString(),
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                  'projectName':
+                                                                      serializeParam(
+                                                                    ' ',
                                                                     ParamType
                                                                         .String,
                                                                   ),
@@ -518,9 +524,11 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                         .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              'Readex Pro',
+                                                                              'GoogleSans',
                                                                           letterSpacing:
                                                                               0.0,
+                                                                          useGoogleFonts:
+                                                                              false,
                                                                         ),
                                                                   ),
                                                                 ),
@@ -539,9 +547,11 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'GoogleSans',
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
                                                           ),
                                                           Text(
@@ -556,9 +566,11 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'GoogleSans',
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
                                                           ),
                                                           Row(
@@ -581,9 +593,19 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                       0xFFE8EAED),
                                                                   size: 24.0,
                                                                 ),
-                                                                onPressed: () {
-                                                                  print(
-                                                                      'IconButton pressed ...');
+                                                                onPressed:
+                                                                    () async {
+                                                                  if ((String?
+                                                                      readOnly) {
+                                                                    return (readOnly ??
+                                                                            '') ==
+                                                                        "1";
+                                                                  }(getJsonField(
+                                                                    projectListItem,
+                                                                    r'''$.read_only''',
+                                                                  ).toString())) {
+                                                                    return;
+                                                                  }
                                                                 },
                                                               ),
                                                               FlutterFlowIconButton(
@@ -601,9 +623,19 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                                       0xFFE8EAED),
                                                                   size: 24.0,
                                                                 ),
-                                                                onPressed: () {
-                                                                  print(
-                                                                      'IconButton pressed ...');
+                                                                onPressed:
+                                                                    () async {
+                                                                  if ((String?
+                                                                      readOnly) {
+                                                                    return (readOnly ??
+                                                                            '') ==
+                                                                        "1";
+                                                                  }(getJsonField(
+                                                                    projectListItem,
+                                                                    r'''$.read_only''',
+                                                                  ).toString())) {
+                                                                    return;
+                                                                  }
                                                                 },
                                                               ),
                                                             ].divide(SizedBox(
@@ -616,10 +648,6 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                       ),
                                                       paginated: false,
                                                       selectable: false,
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width *
-                                                          1.0,
                                                       headingRowHeight: 56.0,
                                                       dataRowHeight: 48.0,
                                                       columnSpacing: 150.0,
@@ -686,11 +714,13 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                           context)
                                                       .displayLarge
                                                       .override(
-                                                        fontFamily: 'Outfit',
+                                                        fontFamily:
+                                                            'GoogleSans',
                                                         fontSize: 60.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        useGoogleFonts: false,
                                                       ),
                                                   colors: [
                                                     Color(0xFF1967D2),
@@ -707,13 +737,15 @@ class _MyProjectsPageWidgetState extends State<MyProjectsPageWidget> {
                                                           context)
                                                       .displayMedium
                                                       .override(
-                                                        fontFamily: 'Outfit',
+                                                        fontFamily:
+                                                            'GoogleSans',
                                                         color:
                                                             Color(0xFFC4C7C5),
                                                         fontSize: 60.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
+                                                        useGoogleFonts: false,
                                                       ),
                                                 ),
                                               ],

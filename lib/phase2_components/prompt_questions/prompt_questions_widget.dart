@@ -50,19 +50,21 @@ class _PromptQuestionsWidgetState extends State<PromptQuestionsWidget> {
         borderRadius: BorderRadius.circular(100.0),
         border: Border.all(
           color: FlutterFlowTheme.of(context).accent4,
-          width: 1.0,
+          width: 2.0,
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(50.0, 16.0, 50.0, 16.0),
+        padding: EdgeInsetsDirectional.fromSTEB(32.0, 16.0, 32.0, 16.0),
         child: Text(
           valueOrDefault<String>(
             widget!.promptQuestion,
             'promptQuestionHere',
           ),
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Readex Pro',
+                fontFamily: 'GoogleSans',
                 letterSpacing: 0.0,
+                fontWeight: FontWeight.w600,
+                useGoogleFonts: false,
               ),
         ),
       ),

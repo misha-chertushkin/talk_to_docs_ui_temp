@@ -50,73 +50,58 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (FFAppState().googleLoginResponse.responseStatus) {
-        showDialog(
-          barrierColor: FlutterFlowTheme.of(context).loaderBg,
-          barrierDismissible: false,
-          context: context,
-          builder: (dialogContext) {
-            return Dialog(
-              elevation: 0,
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              alignment: AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              child: GestureDetector(
-                onTap: () => FocusScope.of(dialogContext).unfocus(),
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width * 0.75,
-                  child: LoaderWidget(),
-                ),
+      showDialog(
+        barrierColor: FlutterFlowTheme.of(context).loaderBg,
+        barrierDismissible: false,
+        context: context,
+        builder: (dialogContext) {
+          return Dialog(
+            elevation: 0,
+            insetPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            alignment: AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            child: GestureDetector(
+              onTap: () => FocusScope.of(dialogContext).unfocus(),
+              child: Container(
+                width: MediaQuery.sizeOf(context).width * 0.75,
+                child: LoaderWidget(),
               ),
-            );
-          },
-        );
-
-        _model.projectDetailsResp = await TalkDocsGroup.projectDetailsCall.call(
-          projectId: widget!.projectID,
-          userId: FFAppState().googleLoginResponse.email,
-        );
-
-        Navigator.pop(context);
-        if ((_model.projectDetailsResp?.succeeded ?? true)) {
-          _model.gotProjectDetails = true;
-          _model.details = ProjectDetailStruct.maybeFromMap(
-              (_model.projectDetailsResp?.jsonBody ?? ''));
-          safeSetState(() {});
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Something went wrong!',
-                style: TextStyle(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-              ),
-              duration: Duration(milliseconds: 4000),
-              backgroundColor: FlutterFlowTheme.of(context).secondary,
             ),
           );
-        }
-      } else {
-        context.goNamed(
-          'Login',
-          extra: <String, dynamic>{
-            kTransitionInfoKey: TransitionInfo(
-              hasTransition: true,
-              transitionType: PageTransitionType.fade,
-              duration: Duration(milliseconds: 0),
-            ),
-          },
-        );
+        },
+      );
 
-        return;
+      _model.projectDetailsResp = await TalkDocsGroup.projectDetailsCall.call(
+        projectId: widget!.projectID,
+        userId: FFAppState().googleLoginResponse.email,
+      );
+
+      Navigator.pop(context);
+      if ((_model.projectDetailsResp?.succeeded ?? true)) {
+        _model.gotProjectDetails = true;
+        _model.details = ProjectDetailStruct.maybeFromMap(
+            (_model.projectDetailsResp?.jsonBody ?? ''));
+        safeSetState(() {});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Something went wrong!',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
       }
     });
 
     _model.tabBarController = TabController(
       vsync: this,
-      length: 3,
+      length: 4,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -221,11 +206,13 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                             context)
                                                         .displayLarge
                                                         .override(
-                                                          fontFamily: 'Outfit',
+                                                          fontFamily:
+                                                              'GoogleSans',
                                                           fontSize: 48.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
+                                                          useGoogleFonts: false,
                                                         ),
                                                     colors: [
                                                       Color(0xFF1967D2),
@@ -340,52 +327,114 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .labelLarge
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'GoogleSans',
+                                                      fontSize: 16.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w500,
+                                                      useGoogleFonts: false,
                                                     ),
                                             unselectedLabelStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelLarge
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'GoogleSans',
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w500,
+                                                      useGoogleFonts: false,
                                                     ),
                                             indicatorColor: Color(0xFF0B57D0),
                                             indicatorWeight: 3.0,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 240.0, 0.0),
+                                                    0.0, 0.0, 100.0, 0.0),
                                             tabs: [
-                                              Tab(
-                                                text: 'Documents',
-                                                icon: Icon(
-                                                  Icons
-                                                      .insert_drive_file_outlined,
-                                                  size: 24.0,
-                                                ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .insert_drive_file_outlined,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                  Tab(
+                                                    text: 'Documents',
+                                                  ),
+                                                ],
                                               ),
-                                              Tab(
-                                                text: 'System Configuration',
-                                                icon: Icon(
-                                                  Icons.add_road_rounded,
-                                                  size: 24.0,
-                                                ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Icon(
+                                                      Icons.add_road_rounded,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                  Tab(
+                                                    text:
+                                                        'System Configuration',
+                                                  ),
+                                                ],
                                               ),
-                                              Tab(
-                                                text: 'Prompt Configuration',
-                                                icon: Icon(
-                                                  Icons.auto_stories_outlined,
-                                                  size: 24.0,
-                                                ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .auto_stories_outlined,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                  Tab(
+                                                    text:
+                                                        'Prompt Configuration',
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Icon(
+                                                      Icons.play_circle_rounded,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                  Tab(
+                                                    text: 'Starter Questions',
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                             controller: _model.tabBarController,
                                             onTap: (i) async {
                                               [
+                                                () async {},
                                                 () async {},
                                                 () async {},
                                                 () async {}
@@ -561,8 +610,24 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                   'Keycyv_${docsIndex}_of_${docs.length}'),
                                                               fileName: docsItem
                                                                   .documentFilename,
+                                                              showDelete: _model
+                                                                      .details
+                                                                      ?.readOnly !=
+                                                                  '1',
                                                               deleteAction:
                                                                   () async {
+                                                                var _shouldSetState =
+                                                                    false;
+                                                                if (_model
+                                                                        .details
+                                                                        ?.readOnly ==
+                                                                    '1') {
+                                                                  if (_shouldSetState)
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  return;
+                                                                }
+
                                                                 await showDialog(
                                                                   barrierDismissible:
                                                                       false,
@@ -645,8 +710,9 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                   },
                                                                 );
 
-                                                                safeSetState(
-                                                                    () {});
+                                                                if (_shouldSetState)
+                                                                  safeSetState(
+                                                                      () {});
                                                               },
                                                             ),
                                                           ),
@@ -682,7 +748,7 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                 .titleLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Outfit',
+                                                                      'GoogleSans',
                                                                   fontSize:
                                                                       20.0,
                                                                   letterSpacing:
@@ -690,6 +756,8 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
                                                           ),
                                                           Row(
@@ -861,7 +929,7 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                 .titleLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Outfit',
+                                                                      'GoogleSans',
                                                                   fontSize:
                                                                       20.0,
                                                                   letterSpacing:
@@ -869,6 +937,8 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
                                                           ),
                                                           Row(
@@ -1074,7 +1144,7 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                 .titleLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Outfit',
+                                                                      'GoogleSans',
                                                                   fontSize:
                                                                       20.0,
                                                                   letterSpacing:
@@ -1082,6 +1152,8 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
                                                           ),
                                                           Row(
@@ -1642,6 +1714,8 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                             isDropdown: false,
                                                             viewDetailsAction:
                                                                 true,
+                                                            isReadOnly: false,
+                                                            hasToolTip: true,
                                                             onViewClick:
                                                                 () async {
                                                               await showDialog(
@@ -1676,6 +1750,9 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                                             widget!.projectID,
                                                                         promptDetail:
                                                                             promptsItem,
+                                                                        isReadOnly:
+                                                                            _model.details?.readOnly ==
+                                                                                '1',
                                                                         onSavePromptSuccess:
                                                                             () async {
                                                                           showDialog(
@@ -1749,6 +1826,61 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                                   },
                                                 ),
                                               ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 32.0, 0.0, 0.0),
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final question = _model
+                                                            .details?.questions
+                                                            ?.toList() ??
+                                                        [];
+
+                                                    return GridView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      gridDelegate:
+                                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 3,
+                                                        crossAxisSpacing: 24.0,
+                                                        mainAxisSpacing: 24.0,
+                                                        childAspectRatio: 1.8,
+                                                      ),
+                                                      primary: false,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          question.length,
+                                                      itemBuilder: (context,
+                                                          questionIndex) {
+                                                        final questionItem =
+                                                            question[
+                                                                questionIndex];
+                                                        return ConfigFieldWidget(
+                                                          key: Key(
+                                                              'Keyejz_${questionIndex}_of_${question.length}'),
+                                                          title:
+                                                              'Starter Question ${(questionIndex + 1).toString()}',
+                                                          value: questionItem,
+                                                          isDropdown: false,
+                                                          viewDetailsAction:
+                                                              true,
+                                                          isReadOnly: false,
+                                                          hasToolTip: false,
+                                                          onViewClick:
+                                                              () async {
+                                                            if (_model.details
+                                                                    ?.readOnly ==
+                                                                '1') {
+                                                              return;
+                                                            }
+                                                          },
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -1756,10 +1888,26 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                     ),
                                   ),
                                   FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      context.pushNamed(
+                                        'chatPage',
+                                        queryParameters: {
+                                          'projectId': serializeParam(
+                                            widget!.projectID,
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.fade,
+                                            duration: Duration(milliseconds: 0),
+                                          ),
+                                        },
+                                      );
                                     },
-                                    text: 'Go to Converstion',
+                                    text: 'Go to Conversation',
                                     options: FFButtonOptions(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           60.0, 27.0, 60.0, 27.0),
@@ -1770,9 +1918,10 @@ class _ProjectDetailsPageWidgetState extends State<ProjectDetailsPageWidget>
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'GoogleSans',
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
+                                            useGoogleFonts: false,
                                           ),
                                       elevation: 0.0,
                                       borderSide: BorderSide(

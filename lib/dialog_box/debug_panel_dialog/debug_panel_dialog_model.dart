@@ -48,6 +48,8 @@ class DebugPanelDialogModel extends FlutterFlowModel<DebugPanelDialogWidget> {
   late DebugScreenItemModel debugScreenItemModel6;
   // Model for debugScreenItem component.
   late DebugScreenItemModel debugScreenItemModel7;
+  // Model for debugScreenItem component.
+  late DebugScreenItemModel debugScreenItemModel8;
 
   @override
   void initState(BuildContext context) {
@@ -62,6 +64,7 @@ class DebugPanelDialogModel extends FlutterFlowModel<DebugPanelDialogWidget> {
     debugScreenItemModel5 = createModel(context, () => DebugScreenItemModel());
     debugScreenItemModel6 = createModel(context, () => DebugScreenItemModel());
     debugScreenItemModel7 = createModel(context, () => DebugScreenItemModel());
+    debugScreenItemModel8 = createModel(context, () => DebugScreenItemModel());
   }
 
   @override
@@ -77,5 +80,6 @@ class DebugPanelDialogModel extends FlutterFlowModel<DebugPanelDialogWidget> {
     debugScreenItemModel5.dispose();
     debugScreenItemModel6.dispose();
     debugScreenItemModel7.dispose();
+    debugScreenItemModel8.dispose();
   }
 }

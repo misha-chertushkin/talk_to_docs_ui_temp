@@ -69,10 +69,11 @@ class _PrimaryActionButtonWidgetState extends State<PrimaryActionButtonWidget> {
               child: Text(
                 widget!.actionName,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: FlutterFlowTheme.of(context).info,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
+                      useGoogleFonts: false,
                     ),
               ),
             ),

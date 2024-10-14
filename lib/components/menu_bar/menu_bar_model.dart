@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/components/button_filled_expanded/button_filled_expanded_widget.dart';
 import '/components/individual_menu_item_expanded/individual_menu_item_expanded_widget.dart';
 import '/dialog_box/create_new_project_dialog/create_new_project_dialog_widget.dart';

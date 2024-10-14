@@ -127,24 +127,24 @@ class LightModeTheme extends FlutterFlowTheme {
   @Deprecated('Use tertiary instead')
   Color get tertiaryColor => tertiary;
 
-  late Color primary = const Color(0xFF1A73E8);
-  late Color secondary = const Color(0xFF39D2C0);
-  late Color tertiary = const Color(0xFFEE8B60);
-  late Color alternate = const Color(0xFFE0E3E7);
-  late Color primaryText = const Color(0xFF000000);
-  late Color secondaryText = const Color(0xFFAEAEAE);
-  late Color primaryBackground = const Color(0xFFF1F4F8);
-  late Color secondaryBackground = const Color(0xFFF7F7F7);
-  late Color accent1 = const Color(0x4C4B39EF);
-  late Color accent2 = const Color(0x4D39D2C0);
-  late Color accent3 = const Color(0x4DEE8B60);
+  late Color primary = const Color(0xFF0B57D0);
+  late Color secondary = const Color(0xFF6366F1);
+  late Color tertiary = const Color(0xFFF5F5F5);
+  late Color alternate = const Color(0xFFE7E0EB);
+  late Color primaryText = const Color(0xFF121212);
+  late Color secondaryText = const Color(0xFF666666);
+  late Color primaryBackground = const Color(0xFFFFFFFF);
+  late Color secondaryBackground = const Color(0xFFF5F5F5);
+  late Color accent1 = const Color(0xFFFCC934);
+  late Color accent2 = const Color(0xFF009688);
+  late Color accent3 = const Color(0xFFE91E63);
   late Color accent4 = const Color(0xFFE1E1E1);
-  late Color success = const Color(0xFF249689);
+  late Color success = const Color(0xFF4CAF50);
   late Color warning = const Color(0xFFF9CF58);
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
 
-  late Color loaderBg = Color(0x4AE0E3E7);
+  late Color loaderBg = Color(0x33333333);
 }
 
 abstract class Typography {
@@ -185,107 +185,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Outfit';
-  TextStyle get displayLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get displayLargeFamily => 'GoogleSans';
+  TextStyle get displayLarge => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Outfit';
-  TextStyle get displayMedium => GoogleFonts.getFont(
-        'Outfit',
+  String get displayMediumFamily => 'GoogleSans';
+  TextStyle get displayMedium => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Outfit';
-  TextStyle get displaySmall => GoogleFonts.getFont(
-        'Outfit',
+  String get displaySmallFamily => 'GoogleSans';
+  TextStyle get displaySmall => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Outfit';
-  TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineLargeFamily => 'GoogleSans';
+  TextStyle get headlineLarge => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Outfit';
-  TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineMediumFamily => 'GoogleSans';
+  TextStyle get headlineMedium => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Outfit';
-  TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineSmallFamily => 'GoogleSans';
+  TextStyle get headlineSmall => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Outfit';
-  TextStyle get titleLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get titleLargeFamily => 'GoogleSans';
+  TextStyle get titleLarge => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Readex Pro';
-  TextStyle get titleMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get titleMediumFamily => 'GoogleSans';
+  TextStyle get titleMedium => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.info,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Readex Pro';
-  TextStyle get titleSmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get titleSmallFamily => 'GoogleSans';
+  TextStyle get titleSmall => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.info,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Readex Pro';
-  TextStyle get labelLarge => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelLargeFamily => 'GoogleSans';
+  TextStyle get labelLarge => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Readex Pro';
-  TextStyle get labelMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelMediumFamily => 'GoogleSans';
+  TextStyle get labelMedium => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Readex Pro';
-  TextStyle get labelSmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelSmallFamily => 'GoogleSans';
+  TextStyle get labelSmall => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Readex Pro';
-  TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodyLargeFamily => 'GoogleSans';
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Readex Pro';
-  TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodyMediumFamily => 'GoogleSans';
+  TextStyle get bodyMedium => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Readex Pro';
-  TextStyle get bodySmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodySmallFamily => 'GoogleSans';
+  TextStyle get bodySmall => TextStyle(
+        fontFamily: 'GoogleSans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
@@ -317,7 +317,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
 
-  late Color loaderBg = Color(0xFFBB6B44);
+  late Color loaderBg = Color(0x33333333);
 }
 
 extension TextStyleHelper on TextStyle {

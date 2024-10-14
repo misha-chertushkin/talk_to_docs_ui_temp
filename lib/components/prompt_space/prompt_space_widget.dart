@@ -74,8 +74,9 @@ class _PromptSpaceWidgetState extends State<PromptSpaceWidget> {
                   focusedErrorBorder: InputBorder.none,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                       lineHeight: 1.5,
                     ),
                 maxLines: 10,

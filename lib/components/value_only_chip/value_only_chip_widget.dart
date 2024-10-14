@@ -84,9 +84,10 @@ class _ValueOnlyChipWidgetState extends State<ValueOnlyChipWidget> {
               child: Text(
                 widget!.parameterTitle,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: widget!.textColor,
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                     ),
               ),
             ),
@@ -95,9 +96,10 @@ class _ValueOnlyChipWidgetState extends State<ValueOnlyChipWidget> {
               child: Text(
                 widget!.parameterValue,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: widget!.textColor,
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                     ),
               ),
             ),

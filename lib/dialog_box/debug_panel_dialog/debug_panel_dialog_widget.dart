@@ -182,7 +182,7 @@ class _DebugPanelDialogWidgetState extends State<DebugPanelDialogWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                fontFamily: 'GoogleSans',
                                                 color:
                                                     _model.selectedRoundIndex ==
                                                             roundsIndex
@@ -192,6 +192,7 @@ class _DebugPanelDialogWidgetState extends State<DebugPanelDialogWidget> {
                                                         : Color(0x9F000000),
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
                                               ),
                                         ),
                                         Divider(
@@ -313,23 +314,42 @@ class _DebugPanelDialogWidgetState extends State<DebugPanelDialogWidget> {
                             ).toString(),
                           ),
                         ),
-                        Text(
-                          'Documents',
-                          style:
-                              FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Color(0xFF717171),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.debugScreenItemModel8,
+                          updateCallback: () => safeSetState(() {}),
+                          child: DebugScreenItemWidget(
+                            title: 'Document Details',
+                            text: getJsonField(
+                              widget!
+                                  .roundInfoList?[_model.selectedRoundIndex!],
+                              r'''$.retrieved_document_details''',
+                            ).toString(),
+                          ),
                         ),
+                        if (getJsonField(
+                              widget!
+                                  .roundInfoList?[_model.selectedRoundIndex!],
+                              r'''$.retrieved_document_names''',
+                            ) !=
+                            null)
+                          Text(
+                            'Documents',
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'GoogleSans',
+                                      color: Color(0xFF717171),
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                          ),
                       ].divide(SizedBox(height: 20.0)),
                     ),
                     Builder(
                       builder: (context) {
                         final docs = getJsonField(
                           widget!.roundInfoList?[_model.selectedRoundIndex!],
-                          r'''$.retrieved_document_details''',
+                          r'''$.retrieved_document_names''',
                         ).toList();
 
                         return GridView.builder(
@@ -383,9 +403,10 @@ class _DebugPanelDialogWidgetState extends State<DebugPanelDialogWidget> {
                         'Debug',
                         style:
                             FlutterFlowTheme.of(context).titleMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Color(0xFF121212),
                                   letterSpacing: 0.0,
+                                  useGoogleFonts: false,
                                 ),
                       ),
                       Expanded(

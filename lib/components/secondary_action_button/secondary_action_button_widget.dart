@@ -11,14 +11,16 @@ class SecondaryActionButtonWidget extends StatefulWidget {
   const SecondaryActionButtonWidget({
     super.key,
     String? actionName,
-    required this.actionIcon,
+    this.actionIcon,
     Color? actionIconColor,
+    required this.hasIcon,
   })  : this.actionName = actionName ?? 'Create New',
         this.actionIconColor = actionIconColor ?? const Color(0xFF717171);
 
   final String actionName;
   final Widget? actionIcon;
   final Color actionIconColor;
+  final bool? hasIcon;
 
   @override
   State<SecondaryActionButtonWidget> createState() =>
@@ -66,19 +68,21 @@ class _SecondaryActionButtonWidgetState
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(22.0, 0.0, 0.0, 0.0),
-              child: widget!.actionIcon!,
-            ),
+            if (widget!.hasIcon ?? true)
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(22.0, 0.0, 0.0, 0.0),
+                child: widget!.actionIcon!,
+              ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
               child: Text(
                 widget!.actionName,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: widget!.actionIconColor,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w500,
+                      useGoogleFonts: false,
                     ),
               ),
             ),

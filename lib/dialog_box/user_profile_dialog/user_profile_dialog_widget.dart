@@ -51,7 +51,7 @@ class _UserProfileDialogWidgetState extends State<UserProfileDialogWidget> {
       padding: EdgeInsets.all(12.0),
       child: Material(
         color: Colors.transparent,
-        elevation: 10.0,
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -90,8 +90,9 @@ class _UserProfileDialogWidgetState extends State<UserProfileDialogWidget> {
                     Text(
                       FFAppState().googleLoginResponse.email,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
+                            fontFamily: 'GoogleSans',
                             letterSpacing: 0.0,
+                            useGoogleFonts: false,
                           ),
                     ),
                     Align(
@@ -148,10 +149,11 @@ class _UserProfileDialogWidgetState extends State<UserProfileDialogWidget> {
                 Text(
                   'Hi, ${FFAppState().googleLoginResponse.displayName}!',
                   style: FlutterFlowTheme.of(context).titleLarge.override(
-                        fontFamily: 'Outfit',
+                        fontFamily: 'GoogleSans',
                         fontSize: 20.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
+                        useGoogleFonts: false,
                       ),
                 ),
                 Container(
@@ -186,6 +188,7 @@ class _UserProfileDialogWidgetState extends State<UserProfileDialogWidget> {
                           size: 24.0,
                         ),
                         actionIconColor: Color(0xFFEA4335),
+                        hasIcon: true,
                       ),
                     ),
                   ),

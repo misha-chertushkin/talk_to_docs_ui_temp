@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,12 +16,15 @@ class ChatItemWidget extends StatefulWidget {
     required this.index,
     bool? showDebug,
     required this.onDebugClick,
-  }) : this.showDebug = showDebug ?? false;
+    bool? sendingChat,
+  })  : this.showDebug = showDebug ?? false,
+        this.sendingChat = sendingChat ?? false;
 
   final ChatStruct? chat;
   final int? index;
   final bool showDebug;
   final Future Function()? onDebugClick;
+  final bool sendingChat;
 
   @override
   State<ChatItemWidget> createState() => _ChatItemWidgetState();
@@ -65,8 +67,8 @@ class _ChatItemWidgetState extends State<ChatItemWidget> {
         children: [
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(48.0),
@@ -80,32 +82,35 @@ class _ChatItemWidgetState extends State<ChatItemWidget> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
-                  child: AutoSizeText(
-                    widget!.chat!.message.maybeHandleOverflow(
-                      maxChars: 800,
-                      replacement: '…',
-                    ),
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0.0,
-                        ),
+                child: Align(
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 160.0, 0.0),
+                    child: SelectionArea(
+                        child: Text(
+                      widget!.chat!.message,
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'GoogleSans',
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
+                    )),
                   ),
                 ),
               ),
             ].divide(SizedBox(width: 16.0)),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(56.0, 0.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(64.0, 0.0, 0.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 if (widget!.showDebug)
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await widget.onDebugClick?.call();
@@ -124,11 +129,12 @@ class _ChatItemWidgetState extends State<ChatItemWidget> {
                         color: Colors.white,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'GoogleSans',
                                   color: Color(0xFF0B57D0),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
+                                  useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderSide: BorderSide(
@@ -153,7 +159,7 @@ class _ChatItemWidgetState extends State<ChatItemWidget> {
               ],
             ),
           ),
-        ].divide(SizedBox(height: 10.0)),
+        ].divide(SizedBox(height: 4.0)),
       ),
     );
   }

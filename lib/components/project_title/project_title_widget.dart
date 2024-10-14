@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -54,21 +53,18 @@ class _ProjectTitleWidgetState extends State<ProjectTitleWidget> {
           Text(
             widget!.title!,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'GoogleSans',
                   letterSpacing: 0.0,
+                  useGoogleFonts: false,
                 ),
           ),
-          FlutterFlowIconButton(
-            borderRadius: 8.0,
-            buttonSize: 40.0,
-            icon: Icon(
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(
               Icons.arrow_drop_down,
-              color: Color(0xFF121212),
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 24.0,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
-            },
           ),
         ].divide(SizedBox(width: 10.0)),
       ),

@@ -82,9 +82,10 @@ class _ButtonFilledExpandedWidgetState
                   'Create New Project',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'GoogleSans',
                       color: FlutterFlowTheme.of(context).info,
                       letterSpacing: 0.0,
+                      useGoogleFonts: false,
                     ),
               ),
             ),

@@ -13,11 +13,15 @@ class ProjectDetailStruct extends BaseStruct {
     String? updatedOn,
     List<PromptConfigurationStruct>? promptConfiguration,
     List<DocumentsStruct>? documents,
+    List<String>? questions,
+    String? readOnly,
   })  : _projectName = projectName,
         _createdOn = createdOn,
         _updatedOn = updatedOn,
         _promptConfiguration = promptConfiguration,
-        _documents = documents;
+        _documents = documents,
+        _questions = questions,
+        _readOnly = readOnly;
 
   // "project_name" field.
   String? _projectName;
@@ -65,6 +69,24 @@ class ProjectDetailStruct extends BaseStruct {
 
   bool hasDocuments() => _documents != null;
 
+  // "questions" field.
+  List<String>? _questions;
+  List<String> get questions => _questions ?? const [];
+  set questions(List<String>? val) => _questions = val;
+
+  void updateQuestions(Function(List<String>) updateFn) {
+    updateFn(_questions ??= []);
+  }
+
+  bool hasQuestions() => _questions != null;
+
+  // "read_only" field.
+  String? _readOnly;
+  String get readOnly => _readOnly ?? '';
+  set readOnly(String? val) => _readOnly = val;
+
+  bool hasReadOnly() => _readOnly != null;
+
   static ProjectDetailStruct fromMap(Map<String, dynamic> data) =>
       ProjectDetailStruct(
         projectName: data['project_name'] as String?,
@@ -78,6 +100,8 @@ class ProjectDetailStruct extends BaseStruct {
           data['documents'],
           DocumentsStruct.fromMap,
         ),
+        questions: getDataList(data['questions']),
+        readOnly: data['read_only'] as String?,
       );
 
   static ProjectDetailStruct? maybeFromMap(dynamic data) => data is Map
@@ -91,6 +115,8 @@ class ProjectDetailStruct extends BaseStruct {
         'prompt_configuration':
             _promptConfiguration?.map((e) => e.toMap()).toList(),
         'documents': _documents?.map((e) => e.toMap()).toList(),
+        'questions': _questions,
+        'read_only': _readOnly,
       }.withoutNulls;
 
   @override
@@ -116,6 +142,15 @@ class ProjectDetailStruct extends BaseStruct {
           _documents,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'questions': serializeParam(
+          _questions,
+          ParamType.String,
+          isList: true,
+        ),
+        'read_only': serializeParam(
+          _readOnly,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -148,6 +183,16 @@ class ProjectDetailStruct extends BaseStruct {
           true,
           structBuilder: DocumentsStruct.fromSerializableMap,
         ),
+        questions: deserializeParam<String>(
+          data['questions'],
+          ParamType.String,
+          true,
+        ),
+        readOnly: deserializeParam(
+          data['read_only'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -161,21 +206,32 @@ class ProjectDetailStruct extends BaseStruct {
         createdOn == other.createdOn &&
         updatedOn == other.updatedOn &&
         listEquality.equals(promptConfiguration, other.promptConfiguration) &&
-        listEquality.equals(documents, other.documents);
+        listEquality.equals(documents, other.documents) &&
+        listEquality.equals(questions, other.questions) &&
+        readOnly == other.readOnly;
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [projectName, createdOn, updatedOn, promptConfiguration, documents]);
+  int get hashCode => const ListEquality().hash([
+        projectName,
+        createdOn,
+        updatedOn,
+        promptConfiguration,
+        documents,
+        questions,
+        readOnly
+      ]);
 }
 
 ProjectDetailStruct createProjectDetailStruct({
   String? projectName,
   String? createdOn,
   String? updatedOn,
+  String? readOnly,
 }) =>
     ProjectDetailStruct(
       projectName: projectName,
       createdOn: createdOn,
       updatedOn: updatedOn,
+      readOnly: readOnly,
     );

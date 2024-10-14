@@ -5,6 +5,7 @@ import '/components/chat_item/chat_item_widget.dart';
 import '/components/loader/loader_widget.dart';
 import '/components/menu_bar/menu_bar_widget.dart';
 import '/components/primary_action_button/primary_action_button_widget.dart';
+import '/components/project_dropdown/project_dropdown_widget.dart';
 import '/components/project_title/project_title_widget.dart';
 import '/components/secondary_action_button/secondary_action_button_widget.dart';
 import '/components/user_avatar/user_avatar_widget.dart';
@@ -13,7 +14,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/phase2_components/prompt_questions/prompt_questions_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'chat_page_widget.dart' show ChatPageWidget;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -40,6 +44,8 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - API (AllProjects)] action in chatPage widget.
+  ApiCallResponse? allProjectResponse;
   // Stores action output result for [Backend Call - API (PreviousChat)] action in chatPage widget.
   ApiCallResponse? previousChatResp;
   // Stores action output result for [Backend Call - API (ImportStatus)] action in chatPage widget.
@@ -49,7 +55,9 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   // Model for projectTitle component.
   late ProjectTitleModel projectTitleModel;
   // Model for secondaryActionButton component.
-  late SecondaryActionButtonModel secondaryActionButtonModel;
+  late SecondaryActionButtonModel secondaryActionButtonModel1;
+  // Model for secondaryActionButton component.
+  late SecondaryActionButtonModel secondaryActionButtonModel2;
   // Model for userAvatar component.
   late UserAvatarModel userAvatarModel;
   // Model for primaryActionButton component.
@@ -60,6 +68,8 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   ScrollController? chatListView;
   // Stores action output result for [Backend Call - API (DebugResponse)] action in chatItem widget.
   ApiCallResponse? debugDetailResp;
+  // State field(s) for Row widget.
+  ScrollController? rowController;
   // State field(s) for userChatField widget.
   FocusNode? userChatFieldFocusNode;
   TextEditingController? userChatFieldTextController;
@@ -73,22 +83,27 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   void initState(BuildContext context) {
     menuBarModel = createModel(context, () => MenuBarModel());
     projectTitleModel = createModel(context, () => ProjectTitleModel());
-    secondaryActionButtonModel =
+    secondaryActionButtonModel1 =
+        createModel(context, () => SecondaryActionButtonModel());
+    secondaryActionButtonModel2 =
         createModel(context, () => SecondaryActionButtonModel());
     userAvatarModel = createModel(context, () => UserAvatarModel());
     primaryActionButtonModel =
         createModel(context, () => PrimaryActionButtonModel());
     chatListView = ScrollController();
+    rowController = ScrollController();
   }
 
   @override
   void dispose() {
     menuBarModel.dispose();
     projectTitleModel.dispose();
-    secondaryActionButtonModel.dispose();
+    secondaryActionButtonModel1.dispose();
+    secondaryActionButtonModel2.dispose();
     userAvatarModel.dispose();
     primaryActionButtonModel.dispose();
     chatListView?.dispose();
+    rowController?.dispose();
     userChatFieldFocusNode?.dispose();
     userChatFieldTextController?.dispose();
   }
