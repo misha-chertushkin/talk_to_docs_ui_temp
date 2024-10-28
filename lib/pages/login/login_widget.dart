@@ -527,7 +527,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             image: DecorationImage(
                               fit: BoxFit.contain,
                               image: Image.network(
-                                'https://img.freepik.com/free-vector/online-document-concept-illustration_114360-5453.jpg',
+                                '/images/free-vector/online-document-concept-illustration_114360-5453.jpg',
                               ).image,
                             ),
                             borderRadius: BorderRadius.circular(16.0),

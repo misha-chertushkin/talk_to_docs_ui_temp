@@ -14,8 +14,9 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start Talk Docs Group Code
 
 class TalkDocsGroup {
-  static String getBaseUrl() =>
-      'https://t2x-api-1099239419018.us-central1.run.app';
+  // static String getBaseUrl() =>
+  //     'https://t2x-api-1099239419018.us-central1.run.app';
+  static String getBaseUrl() => '/api';
   static Map<String, String> headers = {};
   static CreateProjectCall createProjectCall = CreateProjectCall();
   static ProjectDetailsCall projectDetailsCall = ProjectDetailsCall();

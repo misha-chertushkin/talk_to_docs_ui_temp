@@ -1,32 +1,46 @@
-FROM ghcr.io/cirruslabs/flutter:beta AS build
+# Stage 1: Build the Flutter web app
+FROM debian:latest AS builder
 
+# Install Flutter dependencies
+RUN apt-get update && \
+    apt-get install -y curl git unzip xz-utils zip libglu1-mesa && \
+    rm -rf /var/lib/apt/lists/*
+
+# Clone the Flutter repo
+RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
+
+# Add flutter to path
+ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
+
+# Enable Flutter web
+RUN flutter channel stable && \
+    flutter upgrade && \
+    flutter config --enable-web
+
+# Copy your Flutter app
 WORKDIR /app
-
-COPY pubspec.* ./
-
-RUN sed -i '/^dev_dependencies:/,/^[^ ]/d' pubspec.yaml
-
-RUN flutter pub get
-RUN dart --version
 COPY . .
 
+# Get app dependencies
+RUN flutter pub get
+
+# Build the app for the web
 RUN flutter build web --release
-# RUN ls
-# RUN pwd
-# RUN cd build/web
-# RUN flutter create output
 
-FROM nginx:stable-alpine
+# Stage 2: Serve the app with Nginx
+FROM nginx:alpine
 
-# RUN rm /usr/share/nginx/html/*
+# Remove default nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
 
+# Copy static assets from builder stage
+COPY --from=builder /app/build/web /usr/share/nginx/html/
+
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
-
-COPY --from=build /app/build/web /usr/share/nginx/html
-
+# Expose port 8080
 EXPOSE 8080
 
-# Start Nginx server
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
